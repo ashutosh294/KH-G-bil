@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a5276">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Kagdiyal Bill">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="kagdiyal_manifest.webmanifest">
+<link rel="apple-touch-icon" href="kagdiyal_icon.svg">
 <title>Kagdiyal Holidays – Bill Form</title>
 <script>
 // Generate favicon from KH logo initials
@@ -1187,6 +1194,238 @@
     border-radius: 2px;
   }
 
+  /* Responsive app shell */
+  :root {
+    --kh-page-width: 1060px;
+    --kh-screen-gutter: 20px;
+  }
+
+  html {
+    overflow-x: hidden;
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .toolbar,
+  #sessionBar,
+  .utility-panel {
+    width: min(var(--kh-page-width), calc(100vw - (var(--kh-screen-gutter) * 2)));
+    max-width: var(--kh-page-width);
+    flex-wrap: wrap;
+  }
+
+  .toolbar {
+    align-items: center;
+  }
+
+  #sessionBar,
+  .utility-panel {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn,
+  #sessionBar select {
+    min-height: 40px;
+  }
+
+  .page {
+    width: min(var(--kh-page-width), calc(100vw - (var(--kh-screen-gutter) * 2)));
+    max-width: var(--kh-page-width);
+  }
+
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bill-table {
+    min-width: 1000px;
+  }
+
+  .footer-summary {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .footer-cell {
+    min-width: 130px;
+  }
+
+  @media screen and (max-width: 900px) {
+    :root { --kh-screen-gutter: 12px; }
+
+    body {
+      padding: 12px;
+      background:
+        linear-gradient(180deg, rgba(26,82,118,0.14), rgba(243,156,18,0.08) 45%, rgba(39,174,96,0.08)),
+        #e7edf1;
+    }
+
+    .toolbar,
+    #sessionBar,
+    .utility-panel {
+      justify-content: stretch;
+      gap: 8px;
+    }
+
+    .toolbar .btn,
+    #sessionBar .btn,
+    .utility-panel .btn,
+    #sessionBar select {
+      flex: 1 1 150px;
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+
+    .status-chip,
+    #completionBadge {
+      flex: 1 1 100%;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .page {
+      padding: 8px;
+      border-radius: 4px;
+    }
+
+    .outer-border {
+      padding: 6px;
+    }
+
+    .header {
+      gap: 8px;
+    }
+
+    .logo-box {
+      width: 120px;
+      min-width: 120px;
+      padding-right: 6px;
+    }
+
+    .logo-box img {
+      width: 106px !important;
+    }
+
+    .company-info {
+      padding-left: 6px;
+    }
+
+    .company-name {
+      font-size: 22px;
+    }
+
+    .meta-row {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .meta-box,
+    .meta-box:first-child,
+    .meta-box:nth-child(2) {
+      flex: 1 1 220px;
+      margin-right: 0;
+    }
+  }
+
+  @media screen and (max-width: 560px) {
+    :root { --kh-screen-gutter: 8px; }
+
+    body {
+      padding: 8px;
+    }
+
+    .toolbar,
+    #sessionBar,
+    .utility-panel {
+      width: calc(100vw - 16px);
+    }
+
+    .toolbar .btn,
+    #sessionBar .btn,
+    .utility-panel .btn,
+    #sessionBar select {
+      flex-basis: 100%;
+      width: 100%;
+    }
+
+    .page {
+      width: calc(100vw - 16px);
+      padding: 6px;
+    }
+
+    .header {
+      align-items: center;
+    }
+
+    .logo-box {
+      width: 92px;
+      min-width: 92px;
+      padding: 3px 5px 3px 2px;
+    }
+
+    .logo-box img {
+      width: 82px !important;
+    }
+
+    .company-name {
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .iso-tag {
+      font-size: 8.5px;
+    }
+
+    .contact-row {
+      font-size: 9.5px;
+      gap: 4px;
+    }
+
+    .contact-icon {
+      width: 14px;
+      height: 14px;
+      font-size: 8px;
+    }
+
+    .meta-box {
+      flex-basis: 100%;
+    }
+
+    .bill-table {
+      min-width: 960px;
+    }
+
+    .ac-list {
+      max-width: calc(100vw - 32px);
+    }
+
+    .kh-modal {
+      width: calc(100vw - 24px);
+      max-height: calc(100vh - 24px);
+      overflow: auto;
+    }
+
+    #kh-toast {
+      left: 12px !important;
+      right: 12px !important;
+      bottom: 12px !important;
+      text-align: center;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    body {
+      padding-top: 28px;
+      padding-bottom: 34px;
+    }
+  }
+
 </style>
 
 <script>
@@ -1228,10 +1467,18 @@ const MASTER_DATA = {
 // ── In-Memory Storage (localStorage replacement for Claude artifacts) ──
 const __memStore = {};
 function lsGet(key) {
-  try { return key in __memStore ? JSON.parse(__memStore[key]) : null; } catch { return null; }
+  try {
+    const stored = window.localStorage?.getItem(key);
+    if (stored !== null && stored !== undefined) return JSON.parse(stored);
+    return key in __memStore ? JSON.parse(__memStore[key]) : null;
+  } catch {
+    try { return key in __memStore ? JSON.parse(__memStore[key]) : null; } catch { return null; }
+  }
 }
 function lsSet(key, val) {
-  try { __memStore[key] = JSON.stringify(val); } catch {}
+  const data = JSON.stringify(val);
+  try { window.localStorage?.setItem(key, data); } catch {}
+  try { __memStore[key] = data; } catch {}
 }
 
 // ── List helpers (deduplicated, max 40 items) ─────────────────
@@ -1849,6 +2096,7 @@ function restoreDraft() {
 }
 
 function clearDraft(showMsg = true) {
+  try { window.localStorage?.removeItem(LS.draft); } catch {}
   try { delete __memStore[LS.draft]; } catch {}
   const btn = document.getElementById('restoreDraftBtn');
   if (btn) btn.disabled = true;
@@ -1998,6 +2246,15 @@ function injectSessionBar() {
   refreshSessionSelect();
 }
 
+function registerPwa() {
+  const servedFromWeb = location.protocol === 'http:' || location.protocol === 'https:';
+  if (!servedFromWeb || !('serviceWorker' in navigator)) return;
+
+  navigator.serviceWorker.register('./kagdiyal_sw.js')
+    .then(() => updateStatus('Offline ready'))
+    .catch(() => updateStatus('PWA setup skipped'));
+}
+
 // ════════════════════════════════════════════════════════════════
 //  INIT
 // ════════════════════════════════════════════════════════════════
@@ -2006,6 +2263,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeaderFields();
   injectSessionBar();
   installAppEnhancements();
+  registerPwa();
   updateStatus(getDraft() ? 'Unsaved draft available' : 'Ready');
 });
 
