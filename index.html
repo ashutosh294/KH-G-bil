@@ -1431,6 +1431,85 @@
     }
   }
 
+  @page {
+    size: A4 portrait;
+    margin: 6mm;
+  }
+
+  @media print {
+    html,
+    body {
+      width: auto !important;
+      height: auto !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+      background: #fff !important;
+    }
+
+    .toolbar,
+    #sessionBar,
+    .utility-panel,
+    #fillProgress,
+    #completionBadge,
+    #previewBanner,
+    .kh-modal-backdrop,
+    body.app-ready::before,
+    .status-chip {
+      display: none !important;
+    }
+
+    .page {
+      box-sizing: border-box !important;
+      width: 100% !important;
+      max-width: none !important;
+      height: auto !important;
+      min-height: 285mm !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+      transform: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      background: #fff !important;
+    }
+
+    .outer-border {
+      box-sizing: border-box !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      height: auto !important;
+      min-height: 285mm !important;
+      overflow: visible !important;
+      padding: 3.5mm !important;
+    }
+
+    .table-wrap,
+    .footer-summary {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow: visible !important;
+    }
+
+    .bill-table {
+      width: 100% !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+      table-layout: fixed !important;
+    }
+
+    .footer-cell {
+      min-width: 0 !important;
+    }
+
+    .bill-table th,
+    .bill-table td {
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+    }
+  }
+
 </style>
 
 <script>
