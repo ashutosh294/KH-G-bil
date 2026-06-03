@@ -2,12 +2,16 @@
   "name": "Kagdiyal Holidays Bill Form",
   "short_name": "KH Bill",
   "description": "Responsive bill form for Kagdiyal Holidays with offline support.",
-  "start_url": "./kagdiyal_bill.html",
+  "id": "./",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
   "background_color": "#ffffff",
   "theme_color": "#1a5276",
-  "orientation": "any",
+  "orientation": "portrait-primary",
+  "categories": ["business", "productivity", "utilities"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "./kagdiyal_icon.svg",

@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#1a5276">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Kagdiyal Bill">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no">
 <link rel="manifest" href="kagdiyal_manifest.webmanifest">
+<link rel="icon" href="kagdiyal_icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="kagdiyal_icon.svg">
 <title>Kagdiyal Holidays – Bill Form</title>
 <script>
@@ -1431,6 +1433,45 @@
     }
   }
 
+  button,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  @media screen and (max-width: 900px) {
+    body {
+      padding-left: max(12px, env(safe-area-inset-left));
+      padding-right: max(12px, env(safe-area-inset-right));
+      padding-bottom: max(12px, env(safe-area-inset-bottom));
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+      font-size: 16px;
+    }
+
+    .toolbar .btn,
+    #sessionBar .btn,
+    .utility-panel .btn,
+    #sessionBar select {
+      min-height: 44px;
+    }
+
+    .utility-panel .btn {
+      flex: 1 1 145px;
+    }
+
+    .bill-table td input,
+    .footer-cell input,
+    .meta-box input {
+      font-size: 16px;
+    }
+  }
+
   @page {
     size: A4 portrait;
     margin: 6mm;
@@ -2330,12 +2371,60 @@ function injectSessionBar() {
   refreshSessionSelect();
 }
 
+let deferredPwaPrompt = null;
+
+function setupPwaInstallUi() {
+  const panel = document.getElementById('utilityPanel');
+  let installBtn = document.getElementById('pwaInstallBtn');
+  if (panel && !installBtn) {
+    installBtn = document.createElement('button');
+    installBtn.id = 'pwaInstallBtn';
+    installBtn.type = 'button';
+    installBtn.className = 'btn btn-soft';
+    installBtn.textContent = 'Install App';
+    installBtn.style.display = 'none';
+    installBtn.onclick = async () => {
+      if (!deferredPwaPrompt) {
+        showToast('Use browser menu to install app');
+        return;
+      }
+      deferredPwaPrompt.prompt();
+      await deferredPwaPrompt.userChoice;
+      deferredPwaPrompt = null;
+      installBtn.style.display = 'none';
+    };
+    panel.appendChild(installBtn);
+  }
+
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+    deferredPwaPrompt = event;
+    const btn = document.getElementById('pwaInstallBtn');
+    if (btn) btn.style.display = '';
+  });
+
+  window.addEventListener('appinstalled', () => {
+    deferredPwaPrompt = null;
+    const btn = document.getElementById('pwaInstallBtn');
+    if (btn) btn.style.display = 'none';
+    updateStatus('App installed');
+    showToast('App installed');
+  });
+
+  window.addEventListener('online', () => updateStatus('Online'));
+  window.addEventListener('offline', () => updateStatus('Offline mode'));
+}
+
 function registerPwa() {
+  setupPwaInstallUi();
   const servedFromWeb = location.protocol === 'http:' || location.protocol === 'https:';
   if (!servedFromWeb || !('serviceWorker' in navigator)) return;
 
   navigator.serviceWorker.register('./kagdiyal_sw.js')
-    .then(() => updateStatus('Offline ready'))
+    .then(registration => {
+      updateStatus('Offline ready');
+      registration.update?.();
+    })
     .catch(() => updateStatus('PWA setup skipped'));
 }
 
